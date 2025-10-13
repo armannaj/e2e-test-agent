@@ -1,0 +1,4 @@
+- Use Short, focused functions with meaningful names
+- No unnecessary comments - self-documenting code
+- SOLID Principles Applied
+- Clean separation of concerns

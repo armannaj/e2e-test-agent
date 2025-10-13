@@ -1,31 +1,19 @@
-import { ChatOpenAI } from "@langchain/openai";
-import { MCPAgent, MCPClient } from "mcp-use";
 import "dotenv/config";
+import { TestAgent } from "./TestAgent.js";
 
 async function main() {
-  // 1. Configure MCP servers
-  const config = {
-    mcpServers: {
-      playwright: { command: "npx", args: ["@playwright/mcp@latest"] },
-    },
-  };
-  const client = MCPClient.fromDict(config);
+  console.log(`Using tests directory: ${process.env.TESTS_DIR || "./tests"}`);
 
-  // 2. Create LLM
-  const llm = new ChatOpenAI({
-    model: process.env.MODEL_NAME || "gpt-4o",
-    apiKey: process.env.API_KEY,
-    configuration: { baseURL: process.env.BASE_URL },
+  const testAgent = new TestAgent({
+    modelName: process.env.MODEL_NAME,
+    apiKey: process.env.API_KEY!,
+    baseURL: process.env.BASE_URL,
+    testsDir: process.env.TESTS_DIR,
+    maxSteps: 20,
   });
 
-  // 3. Instantiate agent
-  const agent = new MCPAgent({ llm, client, maxSteps: 20 });
-
-  // 4. Run query
-  const result = await agent.run(
-    "Find the best restaurant in Tokyo using Google Search"
-  );
-  console.log("Result:", result);
+  const results = await testAgent.runAllTests();
+  testAgent.printSummary(results);
 }
 
 main().catch(console.error);
