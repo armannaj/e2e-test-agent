@@ -1,16 +1,37 @@
 {
   "name": "test-agent",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1",
+  "description": "An AI-powered testing framework that uses LLM agents to execute natural language test cases",
   "type": "module",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
     "dev": "tsx index.ts"
   },
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "testing",
+    "ai",
+    "llm",
+    "langchain",
+    "playwright",
+    "mcp",
+    "model-context-protocol",
+    "e2e",
+    "automation",
+    "natural-language"
+  ],
+  "author": "Arman",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/armannaj/test-agent"
+  },
+  "bugs": {
+    "url": "https://github.com/armannaj/test-agent/issues"
+  },
+  "homepage": "https://github.com/armannaj/test-agent#readme",
   "dependencies": {
     "@langchain/openai": "^0.6.16",
     "dotenv": "^17.2.3",
