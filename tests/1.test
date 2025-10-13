@@ -1,0 +1,4 @@
+open playwright.dev
+scroll all the way down,
+click on "Get started",
+check if the page side menu is visible.
