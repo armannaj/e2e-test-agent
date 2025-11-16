@@ -1,10 +1,10 @@
-# 🤖 Test Agent
+# 🤖 E2E Agent
 
 An AI-powered testing framework that uses LLM agents to execute natural language test cases. Write tests in plain English and let AI agents interact with your applications to verify behavior.
 
-## 🌟 What is Test Agent?
+## 🌟 What is E2E Agent?
 
-Test Agent is a revolutionary testing approach that combines:
+E2E Agent is a revolutionary testing approach that combines:
 
 - **LLM-powered agents** (via LangChain) for intelligent test execution
 - **Natural language test cases** written in plain English
@@ -31,7 +31,7 @@ await expect(page.locator(".sidebar-menu")).toBeVisible();
 - ❌ No understanding of context or intent
 - ❌ Fragile across UI updates
 
-### Test Agent Approach
+### E2E Agent Approach
 
 ```plaintext
 open playwright.dev
@@ -90,8 +90,8 @@ check if the page side menu is visible.
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
-cd test-agent
+git clone https://github.com/armannaj/e2e-test-agent
+cd e2e-test-agent
 
 # Install dependencies
 npm install
@@ -239,7 +239,7 @@ Use VS Code's built-in debugger:
 ## 🏗️ Project Structure
 
 ```
-test-agent/
+e2e-test-agent/
 ├── index.ts              # Entry point
 ├── TestAgent.ts          # Core TestAgent class
 ├── tests/                # Test files directory

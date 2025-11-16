@@ -1,6 +1,6 @@
 {
-  "name": "test-agent",
-  "version": "0.1.0",
+  "name": "e2e-test-agent",
+  "version": "0.0.1",
   "description": "An AI-powered testing framework that uses LLM agents to execute natural language test cases",
   "type": "module",
   "main": "dist/index.js",
@@ -32,12 +32,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/armannaj/test-agent"
+    "url": "https://github.com/armannaj/e2e-test-agent"
   },
   "bugs": {
-    "url": "https://github.com/armannaj/test-agent/issues"
+    "url": "https://github.com/armannaj/e2e-test-agent/issues"
   },
-  "homepage": "https://github.com/armannaj/test-agent#readme",
+  "homepage": "https://github.com/armannaj/e2e-test-agent#readme",
   "dependencies": {
     "@langchain/openai": "^0.6.16",
     "dotenv": "^17.2.3",
