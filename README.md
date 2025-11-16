@@ -1,18 +1,37 @@
-# 🤖 E2E Agent
+# 🤖 E2E Test Agent
 
-An AI-powered testing framework that uses LLM agents to execute natural language test cases. Write tests in plain English and let AI agents interact with your applications to verify behavior.
+[![npm version](https://badge.fury.io/js/e2e-test-agent.svg)](https://www.npmjs.com/package/e2e-test-agent)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## 🌟 What is E2E Agent?
+AI-powered natural language end-to-end testing framework.
 
-E2E Agent is a revolutionary testing approach that combines:
-
-- **LLM-powered agents** (via LangChain) for intelligent test execution
-- **Natural language test cases** written in plain English
-- **Automated browser interactions** (via Playwright MCP server)
+`e2e-test-agent` is an AI-powered testing framework that uses LLM agents to execute natural language test cases. Write tests in plain English and let AI agents interact with your applications to verify behavior.
 
 Instead of writing brittle selector-based tests, you describe what you want to test in natural language, and the AI agent figures out how to do it.
 
-## 🎯 Why This Approach is Better
+## 📖 Table of Contents
+
+- [🌟 What is E2E Test Agent?](#-what-is-e2e-test-agent)
+- [🎯 Why E2E Test Agent is Better](#-why-this-approach-is-better)
+- [🚀 How It Works](#-how-it-works)
+- [📦 Installation](#-installation)
+- [🎮 Usage](#-usage)
+  - [Quick Start](#quick-start)
+  - [Writing Tests](#writing-tests)
+  - [Programmatic Usage](#programmatic-usage)
+- [🤝 Contributing](#-contributing)
+- [📝 License](#-license)
+- [🔗 Resources](#-resources)
+
+## 🌟 What is E2E Test Agent?
+
+E2E Test Agent is a revolutionary testing approach that combines:
+
+- **LLM-powered agents** for intelligent test execution
+- **Natural language test cases** written in plain English
+- **Automated browser interactions** (via Playwright MCP server)
+
+## 🎯 Why e2e test agent is better
 
 ### Traditional Testing
 
@@ -31,7 +50,7 @@ await expect(page.locator(".sidebar-menu")).toBeVisible();
 - ❌ No understanding of context or intent
 - ❌ Fragile across UI updates
 
-### E2E Agent Approach
+### E2E Test Agent Approach
 
 ```plaintext
 open playwright.dev
@@ -44,7 +63,7 @@ check if the page side menu is visible.
 
 - ✅ **Intent-based**: Describes _what_ to do, not _how_
 - ✅ **Self-healing**: AI adapts to UI changes automatically
-- ✅ **Readable**: Anyone can write and understand tests
+- ✅ **Readable**: Anyone can write and understand tests (POs, stakeholders, BAs)
 - ✅ **Resilient**: Survives refactors and redesigns
 - ✅ **Context-aware**: AI understands page structure and user intent
 - ✅ **No maintenance**: Tests rarely need updates when UI changes
@@ -66,7 +85,7 @@ check if the page side menu is visible.
          ▼
 ┌─────────────────┐
 │  LLM Agent      │ Interprets tests & decides actions
-│  (GPT-4o)       │
+│                 │
 └────────┬────────┘
          │
          ▼
@@ -89,18 +108,18 @@ check if the page side menu is visible.
 ## 📦 Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/armannaj/e2e-test-agent
-cd e2e-test-agent
-
-# Install dependencies
-npm install
-
-# Set up environment variables
-cp .env.example .env
+npm install e2e-test-agent
 ```
 
-Edit `.env` with your configuration:
+Or with yarn:
+
+```bash
+yarn add e2e-test-agent
+```
+
+### Setup
+
+Create a `.env` file in your project root:
 
 ```bash
 MODEL_NAME="gpt-4o"
@@ -109,17 +128,51 @@ BASE_URL="https://api.openai.com/v1"
 TESTS_DIR="./tests"
 ```
 
+> **💡 API Compatibility**: This package works with OpenAI and any OpenAI-compatible APIs, including:
+>
+> - **OpenAI** (GPT-4o, GPT-4, etc.)
+> - **Anthropic Claude** (via OpenAI-compatible endpoints)
+> - **OpenRouter** (access to multiple models)
+> - **Local LLMs** (Ollama, LM Studio, etc.)
+> - Any other service that implements the OpenAI API format
+>
+> Simply configure your `BASE_URL` and `API_KEY` accordingly.
+
 ## 🎮 Usage
 
-### Running Tests
+### Quick Start
+
+Create a test runner file (e.g., `run-tests.ts`):
+
+```typescript
+import { TestAgent } from "e2e-test-agent";
+import "dotenv/config";
+
+async function main() {
+  const testAgent = new TestAgent({
+    modelName: process.env.MODEL_NAME || "gpt-4o",
+    apiKey: process.env.API_KEY!,
+    baseURL: process.env.BASE_URL,
+    testsDir: process.env.TESTS_DIR || "./tests",
+    maxSteps: 20,
+  });
+
+  const results = await testAgent.runAllTests();
+  testAgent.printSummary(results);
+}
+
+main().catch(console.error);
+```
+
+Run your tests:
 
 ```bash
-# Development mode (with live reloading)
-npm run dev
+# With tsx (recommended for development)
+npx tsx run-tests.ts
 
-# Production mode (build first)
-npm run build
-npm start
+# Or compile and run with Node
+tsc run-tests.ts
+node run-tests.js
 ```
 
 ### Writing Tests
@@ -147,7 +200,7 @@ verify the repository has a README file
 ### Programmatic Usage
 
 ```typescript
-import { TestAgent } from "./TestAgent.js";
+import { TestAgent } from "e2e-test-agent";
 
 const testAgent = new TestAgent({
   modelName: "gpt-4o",
@@ -227,29 +280,6 @@ TEST SUMMARY
 Total: 1 | Passed: 1 | Failed: 0
 ```
 
-## 🐛 Debugging
-
-Use VS Code's built-in debugger:
-
-1. Open Run & Debug panel (Cmd+Shift+D / Ctrl+Shift+D)
-2. Select "Debug TypeScript"
-3. Press F5
-4. Set breakpoints in your code
-
-## 🏗️ Project Structure
-
-```
-e2e-test-agent/
-├── index.ts              # Entry point
-├── TestAgent.ts          # Core TestAgent class
-├── tests/                # Test files directory
-│   └── 1.test           # Example test
-├── .env                  # Environment configuration
-├── package.json          # Dependencies & scripts
-├── tsconfig.json         # TypeScript configuration
-└── README.md            # This file
-```
-
 ## 🤝 Contributing
 
 Contributions are welcome! This framework can be extended with:
@@ -273,4 +303,4 @@ MIT
 
 ---
 
-**Built with ❤️ using AI agents and natural language**
+**Built with ❤️ by [Arman](https://x.com/programmerByDay)**
